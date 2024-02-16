@@ -1,0 +1,16 @@
+// Font Import
+@import 'https://fonts.googleapis.com/css2?family=Actor&family=Aldrich&display=swap';
+
+// Size Variables
+$normalSize: 16px;
+
+// Color Variables
+$yellowColor: #D3D725;
+
+// Font Variables
+$logoFont: "Aldrich", sans-serif;
+$textFont: "Actor", sans-serif;
+
+.bg-yellow {
+  background-color: $yellowColor;
+}

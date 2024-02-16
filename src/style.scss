@@ -1,12 +1,13 @@
-$normalSize: 16px;
+@import "./utils.scss";
 
 * {
   border: none;
   padding: 0;
   margin: 0;
-  box-sizing: 0;
+  box-sizing: border-box;
 }
 
 html {
+  font-family: $textFont;
   font-size: $normalSize;
 }
