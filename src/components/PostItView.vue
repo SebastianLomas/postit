@@ -21,15 +21,16 @@
   .postIt{
     width: 12.5rem;
     height: 12.5rem;
-    padding: 0.3rem 0.1rem;
 
     &__header {
       width: 100%;
       height: 1.25rem;
       margin-bottom: 1rem;
+      padding-left: 0.2rem;
       
       &__title {
         width: 90%;
+        padding-top: 0.1rem;
         font-size: 1.25rem;
       }
     }
