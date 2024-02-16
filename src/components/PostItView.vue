@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CancelPostItButtonVue from './CancelPostItButton.vue';
 </script>
 
 <template>
@@ -7,6 +8,7 @@
       <h3 class="postIt__header__title">
         Postit Title
       </h3>
+      <CancelPostItButtonVue />
     </header>
     <section class="postIt__body">
       <p class="postIt__body__text">
@@ -23,13 +25,19 @@
     height: 12.5rem;
 
     &__header {
+      display: grid;
       width: 100%;
       height: 1.25rem;
+      grid-template-areas: 
+      "title title button";
+      grid-template-columns: 1fr 1fr 1.65rem;
       margin-bottom: 1rem;
       padding-left: 0.2rem;
       
       &__title {
-        width: 90%;
+        width: 100%;
+        height: 100%;
+        grid-area: title;
         padding-top: 0.1rem;
         font-size: 1.25rem;
       }
