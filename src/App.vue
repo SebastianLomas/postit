@@ -27,7 +27,9 @@ import AppHeaderVue from './components/AppHeader.vue';
   height: 100vh;
   grid-template-columns: repeat(auto-fit, $postItViewSize);
   grid-template-rows: repeat(auto-fit, $postItViewSize);
-  gap: 0.5rem;
+  gap: 1rem;
+  justify-content: center;
+  align-content: center;
   justify-items: center;
   align-items: center;
 }
