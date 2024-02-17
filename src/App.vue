@@ -29,8 +29,6 @@ import AppHeaderVue from './components/AppHeader.vue';
   grid-template-rows: repeat(auto-fit, $postItViewSize);
   gap: 1rem;
   justify-content: center;
-  align-content: center;
-  justify-items: center;
-  align-items: center;
+  margin-top: 1.5rem;
 }
 </style>
