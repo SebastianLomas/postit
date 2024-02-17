@@ -19,7 +19,7 @@
   padding-left: 0.2rem;
 
   &__logo {
-    font-size: 4rem;
+    font-size: 3rem;
     font-family: $logoFont;
     color: $whiteColor;
 
