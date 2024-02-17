@@ -5,5 +5,30 @@ import AppHeaderVue from './components/AppHeader.vue';
 
 <template>
   <AppHeaderVue />
-  <PostItViewVue />
+  <section class="appBody">
+    <PostItViewVue />
+    <PostItViewVue />
+    <PostItViewVue />
+    <PostItViewVue />
+    <PostItViewVue />
+    <PostItViewVue />
+    <PostItViewVue />
+    <PostItViewVue />
+    <PostItViewVue />
+  </section>
 </template>
+
+<style lang="scss">
+@import "./utils.scss";
+
+.appBody {
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  grid-template-columns: repeat(auto-fit, $postItViewSize);
+  grid-template-rows: repeat(auto-fit, $postItViewSize);
+  gap: 0.5rem;
+  justify-items: center;
+  align-items: center;
+}
+</style>

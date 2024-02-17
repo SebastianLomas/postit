@@ -21,8 +21,8 @@ import CancelPostItButtonVue from './CancelPostItButton.vue';
 <style lang="scss">
   @import "../utils.scss";
   .postIt{
-    width: 12.5rem;
-    height: 12.5rem;
+    width: $postItViewSize;
+    height: $postItViewSize;
 
     &__header {
       display: grid;

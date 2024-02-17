@@ -15,7 +15,7 @@
   height: 100%;
   grid-area: button;
   position: relative;
-  background-color: black;
+  background-color: $backgroundColor;
 
   &__triangle {
     width: 0;
