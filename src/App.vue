@@ -8,14 +8,6 @@ import AddButtonVue from './components/AddButton.vue';
   <AppHeaderVue />
   <section class="appBody">
     <PostItViewVue />
-    <PostItViewVue />
-    <PostItViewVue />
-    <PostItViewVue />
-    <PostItViewVue />
-    <PostItViewVue />
-    <PostItViewVue />
-    <PostItViewVue />
-    <PostItViewVue />
     <AddButtonVue />
   </section>
 </template>
