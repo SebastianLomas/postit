@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CancelPostItButtonVue from './CancelPostItButton.vue';
+//import CancelPostItButtonVue from './CancelPostItButton.vue';
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import CancelPostItButtonVue from './CancelPostItButton.vue';
       <h3 class="postIt__header__title">
         Postit Title
       </h3>
-      <CancelPostItButtonVue />
+      <span class="postIt__header__close">x</span>
     </header>
     <section class="postIt__body">
       <p class="postIt__body__text">
@@ -40,6 +40,24 @@ import CancelPostItButtonVue from './CancelPostItButton.vue';
         grid-area: title;
         padding-top: 0.1rem;
         font-size: 1.25rem;
+      }
+
+      &__close {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bolder;
+        color: $whiteColor;
+      }
+
+      &__close:hover {
+        cursor: pointer;
+        transition: 200ms;
+        background-color: $darkYellowColor;
       }
     }
 
