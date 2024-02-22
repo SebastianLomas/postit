@@ -43,15 +43,7 @@
       }
 
       &__close {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        justify-content: center;
-        align-items: center;
-        user-select: none;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bolder;
-        color: $whiteColor;
+        @include closeButton();
       }
 
       &__close:hover {

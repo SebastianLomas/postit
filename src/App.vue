@@ -2,10 +2,12 @@
 import PostItViewVue from './components/PostItView.vue';
 import AppHeaderVue from './components/AppHeader.vue';
 import AddButtonVue from './components/AddButton.vue';
+import PostItEdit from './components/PostItEdit.vue';
 </script>
 
 <template>
   <AppHeaderVue />
+  <PostItEdit />
   <section class="appBody">
     <PostItViewVue />
     <AddButtonVue />
@@ -24,6 +26,5 @@ import AddButtonVue from './components/AddButton.vue';
   gap: 1rem;
   justify-content: center;
   margin-top: 1.5rem;
-  position: relative;
 }
 </style>
