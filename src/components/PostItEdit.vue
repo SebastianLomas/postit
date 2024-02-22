@@ -37,6 +37,7 @@ import AddButton from './AddButton.vue';
   background-color: $addPostItColorBackgroundColor;
   left: 0;
   top: 0;
+  z-index: 99;
 
   &__form {
     width: 31.25rem;
@@ -81,7 +82,8 @@ import AddButton from './AddButton.vue';
       display: flex;
       width: 100%;
       height: 80%;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
       position: relative;
 
       &__input {
@@ -95,7 +97,7 @@ import AddButton from './AddButton.vue';
           min-height: 2rem;
           resize: none;
           font-size: 1.5rem;
-          padding: 0 0.5rem;
+          padding: 0.3rem 0.5rem;
           border-radius: 0.2rem;
           border-bottom: 0.25rem solid transparent;
           background-color: $darkYellowColor;
