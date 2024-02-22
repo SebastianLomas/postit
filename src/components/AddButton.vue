@@ -15,29 +15,23 @@
 
 .addPostIt {
   display: flex;
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   justify-content: center;
   align-items: center;
   border-radius: 100%;
+  font-size: 3rem;
   background-color: $addButtonBackgroundColor;
-  position: fixed;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  bottom: 1rem;
+  color: $whiteColor;
+
+  &__symbol {
+    user-select: none;
+    padding-bottom: 0.2rem;
+  }
 
   &:hover {
     cursor: pointer;
+    background-color: darken($addButtonBackgroundColor, 10%);
   }
-
-  &__symbol {
-    font-size: 4rem;
-    line-height: 4rem;
-    text-align: center;
-    color: $whiteColor;
-    user-select: none;
-  }
-}
+} 
 </style>

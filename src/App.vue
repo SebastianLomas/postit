@@ -10,7 +10,7 @@ import PostItEdit from './components/PostItEdit.vue';
   <PostItEdit />
   <section class="appBody">
     <PostItViewVue />
-    <AddButtonVue />
+    <AddButtonVue class="appBody__add"/>
   </section>
 </template>
 
@@ -26,5 +26,15 @@ import PostItEdit from './components/PostItEdit.vue';
   gap: 1rem;
   justify-content: center;
   margin-top: 1.5rem;
+  position: relative;
+
+  &__add {
+    margin-left: auto;
+    margin-right: auto;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 }
 </style>
