@@ -1,25 +1,6 @@
 // Font Import
 @import 'https://fonts.googleapis.com/css2?family=Actor&family=Aldrich&display=swap';
 
-// Size Variables
-$normalSize: 16px;
-$postItViewSize: 12.5rem;
-
-// Color Variables
-$yellowColor: #D3D725;
-$darkYellowColor: #B6B91E;
-$whiteColor: #E3E3E3;
-$backgroundColor: #12131C;
-$addPostItColorBackgroundColor: rgba($backgroundColor, 0.6);
-$addButtonBackgroundColor: #3C53CC;
-// Font Variables
-$logoFont: "Aldrich", sans-serif;
-$textFont: "Actor", sans-serif;
-
-.bg-yellow {
-  background-color: $yellowColor;
-}
-
 // Mixins
 @mixin closeButton() {
   display: flex;
@@ -31,4 +12,85 @@ $textFont: "Actor", sans-serif;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bolder;
   color: $whiteColor;
+}
+
+@mixin selectBorder($color, $size) {
+  border: $color solid $size;
+}
+
+@mixin defineBackgroundColor($color) {
+  background-color: $color;
+}
+
+// Size Variables
+$normalSize: 16px;
+$postItViewSize: 12.5rem;
+
+// Color Variables
+$yellowColor: #D3D725;
+$darkYellowColor: #B6B91E;
+$redColor: #E33932;
+$darkRedColor: #B22C27;
+$greenColor: #3ED725;
+$darkGreenColor: #31B01C;
+$purpleColor: #B743E0;
+$darkPurpleColor: #6D2287;
+$whiteColor: #E3E3E3;
+$backgroundColor: #12131C;
+$addPostItColorBackgroundColor: rgba($backgroundColor, 0.6);
+$addButtonBackgroundColor: #3C53CC;
+// Font Variables
+$logoFont: "Aldrich", sans-serif;
+$textFont: "Actor", sans-serif;
+
+.bg-yellow {
+  @include defineBackgroundColor($yellowColor);
+}
+
+.bg-red {
+  @include defineBackgroundColor($redColor);
+}
+
+.bg-green {
+  @include defineBackgroundColor($greenColor);
+}
+
+.bg-purple {
+  @include defineBackgroundColor($purpleColor);
+}
+
+.bg-darkYellow {
+  @include defineBackgroundColor($darkYellowColor);
+}
+
+.bg-darkRed {
+  @include defineBackgroundColor($darkRedColor);
+}
+
+.bg-darkGreen {
+  @include defineBackgroundColor($darkGreenColor);
+}
+
+.bg-darkPurple {
+  @include defineBackgroundColor($darkPurpleColor);
+}
+
+.border-yellow {
+  @include selectBorder($yellowColor, 0.2rem);
+}
+
+.border-red {
+  @include selectBorder($redColor, 0.2rem);
+}
+
+.border-green {
+  @include selectBorder($greenColor, 0.2rem);
+}
+
+.border-purple {
+  @include selectBorder($purpleColor, 0.2rem);
+}
+
+.border-selected {
+  @include selectBorder($addButtonBackgroundColor, 0.2rem);
 }

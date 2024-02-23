@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AddButton from './AddButton.vue';
+import ColorPalette from './ColorPalette.vue';
 
 </script>
 
@@ -18,7 +19,10 @@ import AddButton from './AddButton.vue';
         <label class="postItEdit__form__body__input" for="postItText">
           <textarea name="postItText" id="postItText"></textarea>
         </label>
-        <AddButton />
+        <div class="postItEdit__form__body__config">
+          <ColorPalette />
+          <AddButton />
+        </div>
       </section>
     </article>
   </section>
@@ -69,6 +73,7 @@ import AddButton from './AddButton.vue';
         }
 
         input:focus {
+          transition: 500ms;
           border-bottom: 0.25rem solid $whiteColor;
         }
       }
@@ -101,7 +106,19 @@ import AddButton from './AddButton.vue';
           border-radius: 0.2rem;
           border-bottom: 0.25rem solid transparent;
           background-color: $darkYellowColor;
+
+          &:focus {
+            transition: 500ms;
+            border-bottom: 0.25rem solid $whiteColor;
+          }
         }
+      }
+
+      &__config {
+        display: flex;
+        width: 92%;
+        height: 20%;
+        justify-content: space-between;
       }
     }
   }
