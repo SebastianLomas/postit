@@ -3,14 +3,23 @@ import PostItViewVue from './components/PostItView.vue';
 import AppHeaderVue from './components/AppHeader.vue';
 import AddButtonVue from './components/AddButton.vue';
 import PostItEdit from './components/PostItEdit.vue';
+
+import { ref } from 'vue';
+
+const isEditMode = ref('false')
+
+const openPostItEdit = function() {
+  // Sets true for editmode: It hides add button and reveal postIt Add window
+  isEditMode.value = 'true';
+}
 </script>
 
 <template>
   <AppHeaderVue />
-  <PostItEdit />
+  <PostItEdit v-if="isEditMode === 'true'" />
   <section class="appBody">
     <PostItViewVue />
-    <AddButtonVue class="appBody__add"/>
+    <AddButtonVue v-if="isEditMode === 'false'" class="appBody__add" id="addButton" @click="openPostItEdit"/>
   </section>
 </template>
 
