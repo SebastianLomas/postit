@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import AddButton from './AddButton.vue';
 import ColorPalette from './ColorPalette.vue';
+import { isEditMode } from '../utils';
+
+const closeEditMode = function() {
+  isEditMode.value = "false";
+}
 
 </script>
 
@@ -11,7 +16,7 @@ import ColorPalette from './ColorPalette.vue';
         <label class="postItEdit__form__header__title" for="postItTitle">
           <input type="text" name="postItTitle" id="postItTitle">
         </label>
-        <span class="postItEdit__form__header__close">
+        <span class="postItEdit__form__header__close" @click="closeEditMode">
           x
         </span>
       </header>
@@ -81,6 +86,7 @@ import ColorPalette from './ColorPalette.vue';
       &__close {
         @include closeButton();
       }
+
     }
 
     &__body {

@@ -4,13 +4,12 @@ import AppHeaderVue from './components/AppHeader.vue';
 import AddButtonVue from './components/AddButton.vue';
 import PostItEdit from './components/PostItEdit.vue';
 
-import { ref } from 'vue';
+import { isEditMode } from './utils';
 
-const isEditMode = ref('false')
 
 const openPostItEdit = function() {
   // Sets true for editmode: It hides add button and reveal postIt Add window
-  isEditMode.value = 'true';
+  isEditMode.value = "true";
 }
 </script>
 
