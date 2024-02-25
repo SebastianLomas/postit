@@ -2,8 +2,12 @@ import { ref } from 'vue';
 import { PostItData } from './assets/modules/PostItData';
 
 export const postItContext = ref<PostItData[]>([]);
+export let postItIds = 0;
+export const isEditMode = ref('false');
+export const postItKey = "postIts";
 
-const post : PostItData = new PostItData(1, "test", "testing", "bg-green", "bg-darkGreen");
-postItContext.value.push(post);
-
-export const isEditMode = ref('false')
+export const savePostIt = function() {
+  const postItArrays : PostItData[] = postItContext.value;
+  localStorage.setItem('postIts', JSON.strinify([...postItArrays]));
+  console.log(postItArrays);
+}

@@ -4,9 +4,18 @@ import AppHeaderVue from './components/AppHeader.vue';
 import AddButtonVue from './components/AddButton.vue';
 import PostItEdit from './components/PostItEdit.vue';
 
-import { isEditMode, postItContext } from './utils';
+import { isEditMode, postItContext, postItKey } from './utils';
 
+const loadPostIts = function() {
+  const postIts : string | null = localStorage.getItem(postItKey);
 
+  if(postIts !== null) {
+    postItContext.value = JSON.parse(postIts);
+    console.log(JSON.parse(postIts));
+  }
+}
+
+loadPostIts();
 
 const openPostItEdit = function() {
   // Sets true for editmode: It hides add button and reveal postIt Add window
