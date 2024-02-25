@@ -11,7 +11,6 @@ const loadPostIts = function() {
 
   if(postIts !== null) {
     postItContext.value = JSON.parse(postIts);
-    console.log(JSON.parse(postIts));
   }
 }
 

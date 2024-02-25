@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AddButton from './AddButton.vue';
 import ColorPalette from './ColorPalette.vue';
-import { isEditMode, postItContext, postItIds, postItKey } from '../utils';
+import { isEditMode, postItContext, postItIds, postItKey, postItColor } from '../utils';
 import { PostItData } from '../assets/modules/PostItData';
 
 const closeEditMode = function() {
@@ -11,11 +11,12 @@ const closeEditMode = function() {
 const createPostIt = function() {
   const inputTitle : HTMLInputElement | null = document.querySelector("#postItTitle");
   const inputText : HTMLInputElement | null = document.querySelector("#postItText");
+  const selectedColor : HTMLDivElement | null = document.querySelector(".border-selected");
 
   // If the input and their values are null or void string, it won't work
-  if((inputTitle !== null && inputTitle.value !== "") && (inputText !== null && inputText.value !== "")) {
-    postItContext.value.push(new PostItData(postItIds, inputTitle?.value, inputText?.value, "bg-yellow", "bg-darkYellow"));
-    postItContext.value.forEach(pos => console.log(pos));
+  if((inputTitle !== null && inputTitle.value !== "") && (inputText !== null && inputText.value !== "") && selectedColor !== null) {
+    const selectedColorClass : string = selectedColor.classList[1];
+    postItContext.value.push(new PostItData(postItIds, inputTitle?.value, inputText?.value, selectedColorClass));
     localStorage.setItem(postItKey, JSON.stringify(postItContext.value));
     closeEditMode();
   }
@@ -25,7 +26,7 @@ const createPostIt = function() {
 
 <template>
   <section class="postItEdit">
-    <article class="postItEdit__form bg-yellow">
+    <article :class="['postItEdit__form', postItColor]">
       <header class="postItEdit__form__header">
         <label class="postItEdit__form__header__title" for="postItTitle">
           <input type="text" name="postItTitle" id="postItTitle">
@@ -88,7 +89,7 @@ const createPostIt = function() {
           padding: 0 0.5rem;
           border-radius: 0.2rem;
           border-bottom: 0.25rem solid transparent;
-          background-color: $darkYellowColor;
+          background-color: rgba($darkColor, $alpha: 0.1);
         }
 
         input:focus {
@@ -125,7 +126,7 @@ const createPostIt = function() {
           padding: 0.3rem 0.5rem;
           border-radius: 0.2rem;
           border-bottom: 0.25rem solid transparent;
-          background-color: $darkYellowColor;
+          background-color: rgba($darkColor, $alpha: 0.1);
 
           &:focus {
             transition: 500ms;
