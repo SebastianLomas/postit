@@ -4,7 +4,8 @@ import AppHeaderVue from './components/AppHeader.vue';
 import AddButtonVue from './components/AddButton.vue';
 import PostItEdit from './components/PostItEdit.vue';
 
-import { isEditMode } from './utils';
+import { isEditMode, postItContext } from './utils';
+
 
 
 const openPostItEdit = function() {
@@ -17,7 +18,7 @@ const openPostItEdit = function() {
   <AppHeaderVue />
   <PostItEdit v-if="isEditMode === 'true'" />
   <section class="appBody">
-    <PostItViewVue />
+    <PostItViewVue v-for="(postit, index) in postItContext" :key="index" :title="postit.title" :content="postit.description" :postItColor="postit.backgroundColor"/>
     <AddButtonVue v-if="isEditMode === 'false'" class="appBody__add" id="addButton" @click="openPostItEdit"/>
   </section>
 </template>

@@ -1,28 +1,34 @@
 <script setup lang="ts">
-//import CancelPostItButtonVue from './CancelPostItButton.vue';
+defineProps({
+  title : String,
+  content : String,
+  postItColor : String,
+  postItDarkColor : String
+});
 </script>
 
 <template>
-  <article class="postIt bg-yellow">
+  <article :class="['postIt', postItColor]">
     <header class="postIt__header">
       <h3 class="postIt__header__title">
-        Postit Title
+        {{ title }}
       </h3>
       <span class="postIt__header__close">x</span>
     </header>
     <section class="postIt__body">
       <p class="postIt__body__text">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse natus quidem error ab?
+        {{ content }}
       </p>
     </section>
   </article>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
   @import "../utils.scss";
   .postIt{
     width: $postItViewSize;
     height: $postItViewSize;
+    text-transform: capitalize;
 
     &__header {
       display: grid;
@@ -49,7 +55,7 @@
       &__close:hover {
         cursor: pointer;
         transition: 200ms;
-        background-color: $darkYellowColor;
+        background-color: rgba($darkColor, $alpha: 0.5);
       }
     }
 
