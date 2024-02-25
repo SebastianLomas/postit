@@ -1,10 +1,22 @@
 <script setup lang="ts">
 import AddButton from './AddButton.vue';
 import ColorPalette from './ColorPalette.vue';
-import { isEditMode } from '../utils';
+import { isEditMode, postItContext } from '../utils';
+import { PostItData } from '../assets/modules/PostItData';
 
 const closeEditMode = function() {
   isEditMode.value = "false";
+}
+
+const createPostIt = function() {
+  const inputTitle : HTMLInputElement | null = document.querySelector("#postItTitle");
+  const inputText : HTMLInputElement | null = document.querySelector("#postItText");
+
+  // If the input and their values are null or void string, it won't work
+  if((inputTitle !== null && inputTitle.value !== "") && (inputText !== null && inputText.value !== "")) {
+    postItContext.value.push(new PostItData(2, inputTitle?.value, inputText?.value, "bg-yellow", "bg-darkYellow"));
+    closeEditMode();
+  }
 }
 
 </script>
@@ -26,7 +38,7 @@ const closeEditMode = function() {
         </label>
         <div class="postItEdit__form__body__config">
           <ColorPalette />
-          <AddButton />
+          <AddButton @click="createPostIt" />
         </div>
       </section>
     </article>
