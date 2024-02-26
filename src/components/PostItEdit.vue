@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AddButton from './AddButton.vue';
 import ColorPalette from './ColorPalette.vue';
-import { isEditMode, postItContext, postItIds, postItKey, postItColor } from '../utils';
+import { isEditMode, postItContext, postItKey, postItColor } from '../utils';
 import { PostItData } from '../assets/modules/PostItData';
 
 const closeEditMode = function() {
@@ -16,6 +16,7 @@ const createPostIt = function() {
   // If the input and their values are null or void string, it won't work
   if((inputTitle !== null && inputTitle.value !== "") && (inputText !== null && inputText.value !== "") && selectedColor !== null) {
     const selectedColorClass : string = selectedColor.classList[1];
+    const postItIds = postItContext.value.length;
     postItContext.value.push(new PostItData(postItIds, inputTitle?.value, inputText?.value, selectedColorClass));
     localStorage.setItem(postItKey, JSON.stringify(postItContext.value));
     closeEditMode();
