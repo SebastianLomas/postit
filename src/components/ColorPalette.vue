@@ -1,5 +1,37 @@
 <script setup lang="ts">
-import { postItColor } from '../utils'
+import { onMounted } from 'vue';
+import { postItColor, BackgroundColors } from '../utils';
+
+const getInitialSelectedColor = function() {
+  const selectedColor : string = postItColor.value;
+  let color : HTMLDivElement | null = null;
+
+  switch(selectedColor) {
+    case BackgroundColors.YELLOW:
+      color = document.querySelector(".border-yellow") as HTMLDivElement;
+      color.classList.remove("border-yellow");
+      color.classList.add("border-selected");
+      break;
+
+      case BackgroundColors.GREEN:
+      color = document.querySelector(".border-green") as HTMLDivElement;
+      color.classList.remove("border-green");
+      color.classList.add("border-selected");
+      break;
+
+      case BackgroundColors.RED:
+      color = document.querySelector(".border-red") as HTMLDivElement;
+      color.classList.remove("border-red");
+      color.classList.add("border-selected");
+      break;
+
+      case BackgroundColors.PURPLE:
+      color = document.querySelector(".border-purple") as HTMLDivElement;
+      color.classList.remove("border-purple");
+      color.classList.add("border-selected");
+      break;
+  }
+}
 
 const changeSelectedColor = function(ev : MouseEvent) {
   const selection : HTMLDivElement | null = ev.target as HTMLDivElement;
@@ -32,13 +64,17 @@ const changeSelectedColor = function(ev : MouseEvent) {
     selection.classList.add("border-selected");
   }
 }
+
+onMounted(() => {
+  getInitialSelectedColor();
+})
 </script>
 
 <template>
   <div class="colorPalette" @click="changeSelectedColor">
-    <div class="colorPalette__color bg-red border-red"></div>
-    <div class="colorPalette__color bg-yellow border-selected"></div>
+    <div class="colorPalette__color bg-yellow border-yellow"></div>
     <div class="colorPalette__color bg-green border-green"></div>
+    <div class="colorPalette__color bg-red border-red"></div>
     <div class="colorPalette__color bg-purple border-purple"></div>
   </div>
 </template>

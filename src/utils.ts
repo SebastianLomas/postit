@@ -6,3 +6,10 @@ export const isEditMode = ref('false');
 export const postItKey = "postIts";
 export const postItColor = ref('bg-yellow');
 
+export enum BackgroundColors {
+  YELLOW = "bg-yellow",
+  GREEN = "bg-green",
+  RED = "bg-red",
+  PURPLE = "bg-purple"
+}
+
