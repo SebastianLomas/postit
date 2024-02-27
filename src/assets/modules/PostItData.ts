@@ -1,11 +1,17 @@
+import { postItContext } from "../../utils";
+
 export class PostItData {
   id : number;
   title : string;
   description : string;
   backgroundColor : string;
 
-  constructor(id : number, title : string, description : string, backgroundColor : string) {
-    this.id = id;
+  constructor(title : string, description : string, backgroundColor : string) {
+    if(postItContext.value.length) {
+      this.id = postItContext.value[postItContext.value.length - 1].id + 1;
+    } else {
+      this.id = 0;
+    }
     this.title = title;
     this.description = description;
     this.backgroundColor = backgroundColor;

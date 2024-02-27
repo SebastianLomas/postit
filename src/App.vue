@@ -26,7 +26,7 @@ const openPostItEdit = function() {
   <AppHeaderVue />
   <PostItEdit v-if="isEditMode === 'true'" />
   <section class="appBody">
-    <PostItViewVue v-for="(postit, index) in postItContext" :key="index" :title="postit.title" :content="postit.description" :postItColor="postit.backgroundColor"/>
+    <PostItViewVue v-for="(postit) in postItContext" :postItKey="postit.id" :title="postit.title" :content="postit.description" :postItColor="postit.backgroundColor"/>
     <AddButtonVue v-if="isEditMode === 'false'" class="appBody__add" id="addButton" @click="openPostItEdit"/>
   </section>
 </template>

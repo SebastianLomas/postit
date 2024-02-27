@@ -16,8 +16,7 @@ const createPostIt = function() {
   // If the input and their values are null or void string, it won't work
   if((inputTitle !== null && inputTitle.value !== "") && (inputText !== null && inputText.value !== "") && selectedColor !== null) {
     const selectedColorClass : string = selectedColor.classList[1];
-    const postItIds = postItContext.value.length;
-    postItContext.value.push(new PostItData(postItIds, inputTitle?.value, inputText?.value, selectedColorClass));
+    postItContext.value.push(new PostItData(inputTitle?.value, inputText?.value, selectedColorClass));
     localStorage.setItem(postItKey, JSON.stringify(postItContext.value));
     closeEditMode();
   }

@@ -1,19 +1,36 @@
 <script setup lang="ts">
+import { PostItData } from '../assets/modules/PostItData';
+import { postItContext } from '../utils';
+
 defineProps({
   title : String,
   content : String,
   postItColor : String,
-  postItDarkColor : String
+  postItDarkColor : String,
+  postItKey : Number
 });
+
+const deletePostIt = function(ev : MouseEvent) {
+  const postItX : HTMLSpanElement = ev.target as HTMLSpanElement;
+  const postItTarget : HTMLDivElement | null | undefined = postItX.parentElement?.parentElement as HTMLDivElement;
+
+  if(postItTarget !== null && postItTarget !== undefined) {
+    const postItTargetId : string | undefined = postItTarget.dataset.id;
+    const postItContextTemp : PostItData[] = postItContext.value.filter(element => element.id.toString() !== postItTargetId)
+    postItContext.value = postItContextTemp;
+
+    console.log(`${typeof postItTargetId} - ${postItTargetId}`)
+  }
+}
 </script>
 
 <template>
-  <article :class="['postIt', postItColor]">
+  <article :class="['postIt', postItColor]" :data-id="postItKey">
     <header class="postIt__header">
       <h3 class="postIt__header__title">
         {{ title }}
       </h3>
-      <span class="postIt__header__close">x</span>
+      <span class="postIt__header__close" @click="deletePostIt">x</span>
     </header>
     <section class="postIt__body">
       <p class="postIt__body__text">
