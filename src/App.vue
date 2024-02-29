@@ -51,7 +51,7 @@ const openPostItEdit = function() {
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 1rem;
   }
 }
 </style>
