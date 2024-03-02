@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { postItContext } from '../utils';
+import { POST_IT_KEY, postItContext } from '../utils';
 
 defineProps({
   title : String,
@@ -10,15 +10,23 @@ defineProps({
 });
 
 const deletePostIt = function(ev : MouseEvent) {
+  // Getting the "X" that is clicked
   const postItX : HTMLSpanElement = ev.target as HTMLSpanElement;
+  // Getting the actual post it
   const postItTarget : HTMLDivElement | null | undefined = postItX.parentElement?.parentElement as HTMLDivElement;
 
   if(postItTarget !== null && postItTarget !== undefined) {
+    // Gets the id given to the element from data-id
     const postItTargetId : string | undefined = postItTarget.dataset.id;
+    // If the id taken form data-id is equal to the Id of the elemento of the array of postits
+    // it is no saved
+    // Looped inside a normal constant to avoid multiple renders
     const postItContextTemp = postItContext.value.filter(element => element.Id.toString() !== postItTargetId)
     postItContext.value = postItContextTemp;
 
-    console.log(`${typeof postItTargetId} - ${postItTargetId}`)
+    // Cleaning and saving postit array in local storage
+    localStorage.clear();
+    localStorage.setItem(POST_IT_KEY, JSON.stringify(postItContext.value));
   }
 }
 </script>
