@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { PostItData } from '../assets/modules/PostItData';
 import { postItContext } from '../utils';
 
 defineProps({
@@ -16,7 +15,7 @@ const deletePostIt = function(ev : MouseEvent) {
 
   if(postItTarget !== null && postItTarget !== undefined) {
     const postItTargetId : string | undefined = postItTarget.dataset.id;
-    const postItContextTemp : PostItData[] = postItContext.value.filter(element => element.id.toString() !== postItTargetId)
+    const postItContextTemp = postItContext.value.filter(element => element.Id.toString() !== postItTargetId)
     postItContext.value = postItContextTemp;
 
     console.log(`${typeof postItTargetId} - ${postItTargetId}`)

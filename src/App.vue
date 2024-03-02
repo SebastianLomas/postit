@@ -4,14 +4,24 @@ import AppHeaderVue from './components/AppHeader.vue';
 import AddButtonVue from './components/AddButton.vue';
 import PostItEdit from './components/PostItEdit.vue';
 
-import { isEditMode, postItContext, postItKey } from './utils';
+import { isEditMode, postItContext, POST_IT_KEY, RawPostItData } from './utils';
+import { PostItData } from './assets/modules/PostItData';
 
 const loadPostIts = function() {
-  const postIts : string | null = localStorage.getItem(postItKey);
+  const postItRaws : string | null = localStorage.getItem(POST_IT_KEY);
 
-  if(postIts !== null) {
-    postItContext.value = JSON.parse(postIts);
+  if(postItRaws) {
+    const postItParsed : RawPostItData[] = JSON.parse(postItRaws);
+    const tempPostItArray : PostItData[] = [];
+
+    for(let i = 0;i < postItParsed.length;i++) {
+      const currentPostIt : RawPostItData = postItParsed[i];
+      tempPostItArray.push(new PostItData(currentPostIt.title, currentPostIt.description, currentPostIt.backgroundColor));
+    }
+
+    postItContext.value = tempPostItArray;
   }
+
 }
 
 loadPostIts();
@@ -26,7 +36,11 @@ const openPostItEdit = function() {
   <AppHeaderVue />
   <PostItEdit v-if="isEditMode === 'true'" />
   <section class="appBody">
-    <PostItViewVue v-for="(postit) in postItContext" :postItKey="postit.id" :title="postit.title" :content="postit.description" :postItColor="postit.backgroundColor"/>
+    <PostItViewVue v-for="(postit) in postItContext" 
+      :postItKey="postit.Id" 
+      :title="postit.Title" 
+      :content="postit.Description" 
+      :postItColor="postit.BackgroundColor"/>
     <AddButtonVue v-if="isEditMode === 'false'" class="appBody__add" id="addButton" @click="openPostItEdit"/>
   </section>
 </template>
