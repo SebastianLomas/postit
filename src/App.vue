@@ -29,7 +29,7 @@ const loadPostIts = function() {
       // Create an PostItData Object for each object stored in localStorage.
       // This solved an error that it didn't reconize this objectes as PostItData objects
       const currentPostIt : RawPostItData = postItParsed[i];
-      tempPostItArray.push(new PostItData(currentPostIt.title, currentPostIt.description, currentPostIt.backgroundColor));
+      tempPostItArray.push(new PostItData(currentPostIt.title, currentPostIt.description, currentPostIt.backgroundColor, currentPostIt.id));
     }
 
     postItContext.value = tempPostItArray;
