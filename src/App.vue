@@ -8,6 +8,8 @@ import { isEditMode, postItContext, POST_IT_KEY, RawPostItData } from './utils';
 import { PostItData } from './assets/modules/PostItData';
 
 const loadPostIts = function() {
+  // Checks if there's stored data
+  // POST_IT_KEY is the key where postits are stored in localStorage. Declared in utils.ts
   const postItRaws : string | null = localStorage.getItem(POST_IT_KEY);
 
   if(postItRaws) {
@@ -15,6 +17,8 @@ const loadPostIts = function() {
     const tempPostItArray : PostItData[] = [];
 
     for(let i = 0;i < postItParsed.length;i++) {
+      // Create an PostItData Object for each object stored in localStorage.
+      // This solved an error that it didn't reconize this objectes as PostItData objects
       const currentPostIt : RawPostItData = postItParsed[i];
       tempPostItArray.push(new PostItData(currentPostIt.title, currentPostIt.description, currentPostIt.backgroundColor));
     }
@@ -36,6 +40,7 @@ const openPostItEdit = function() {
   <AppHeaderVue />
   <PostItEdit v-if="isEditMode === 'true'" />
   <section class="appBody">
+    <!--For every PostItData object, it rendes a postit-->
     <PostItViewVue v-for="(postit) in postItContext" 
       :postItKey="postit.Id" 
       :title="postit.Title" 
