@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onBeforeMount } from 'vue';
+
 import PostItViewVue from './components/PostItView.vue';
 import AppHeaderVue from './components/AppHeader.vue';
 import AddButtonVue from './components/AddButton.vue';
@@ -28,12 +30,12 @@ const loadPostIts = function() {
 
 }
 
-loadPostIts();
-
 const openPostItEdit = function() {
   // Sets true for editmode: It hides add button and reveal postIt Add window
   isEditMode.value = "true";
 }
+
+onBeforeMount(loadPostIts);
 </script>
 
 <template>
