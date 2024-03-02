@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import AddButton from './AddButton.vue';
 import ColorPalette from './ColorPalette.vue';
-import { PostItModes, postItContext, POST_IT_KEY, postItColor, changeMode } from '../utils';
+import { Mode, PostItModes, postItContext, POST_IT_KEY, postItColor, changeMode } from '../utils';
 import { PostItData } from '../assets/modules/PostItData';
+
+const props = defineProps({
+  title : String,
+  description : String,
+  backgroundColor : String
+});
 
 const createPostIt = function() {
   const inputTitle : HTMLInputElement | null = document.querySelector("#postItTitle");
@@ -21,7 +27,7 @@ const createPostIt = function() {
 </script>
 
 <template>
-  <section class="postItEdit">
+  <section class="postItEdit" v-if="Mode === PostItModes.CREATE">
     <article :class="['postItEdit__form', postItColor]">
       <header class="postItEdit__form__header">
         <label class="postItEdit__form__header__title" for="postItTitle">
@@ -35,6 +41,29 @@ const createPostIt = function() {
       <section class="postItEdit__form__body">
         <label class="postItEdit__form__body__input" for="postItText">
           <textarea name="postItText" id="postItText"></textarea>
+        </label>
+        <div class="postItEdit__form__body__config">
+          <ColorPalette />
+          <AddButton @click="createPostIt" />
+        </div>
+      </section>
+    </article>
+  </section>
+
+  <section class="postItEdit" v-else-if="Mode === PostItModes.EDIT">
+    <article :class="['postItEdit__form', props.backgroundColor]">
+      <header class="postItEdit__form__header">
+        <label class="postItEdit__form__header__title" for="postItTitle">
+          <input type="text" name="postItTitle" id="postItTitle" :value="props.title">
+        </label>
+        <span class="postItEdit__form__header__close" 
+        @click="changeMode(PostItModes.VIEW)">
+          x
+        </span>
+      </header>
+      <section class="postItEdit__form__body">
+        <label class="postItEdit__form__body__input" for="postItText">
+          <textarea name="postItText" id="postItText" :value="props.description"></textarea>
         </label>
         <div class="postItEdit__form__body__config">
           <ColorPalette />

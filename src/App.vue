@@ -9,6 +9,13 @@ import PostItEdit from './components/PostItEdit.vue';
 import { Mode, PostItModes, changeMode, postItContext, POST_IT_KEY, RawPostItData } from './utils';
 import { PostItData } from './assets/modules/PostItData';
 
+let selectedPostIt : RawPostItData = {
+  id: -1,
+  title: "",
+  description: "",
+  backgroundColor: ""
+}
+
 const loadPostIts = function() {
   // Checks if there's stored data
   // POST_IT_KEY is the key where postits are stored in localStorage. Declared in utils.ts
@@ -30,19 +37,47 @@ const loadPostIts = function() {
 
 }
 
+const launchEditMode = function(ev : MouseEvent) {
+  // Gets Post It Element
+  const postItSelected : HTMLDivElement | null | undefined = ev.target as HTMLDivElement;
+
+  if(postItSelected) {
+    // Gets Id set in data-id
+    const selectedId : number = parseInt(postItSelected.dataset.id ?? "-1");
+
+    // If it's less than 0, it won't work 
+    if(selectedId >= 0) {
+      // Assign the values to selectedPost, so can they can be passed as props
+      selectedPostIt.id = postItContext.value[selectedId].Id;
+      selectedPostIt.title = postItContext.value[selectedId].Title;
+      selectedPostIt.description = postItContext.value[selectedId].Description;
+      selectedPostIt.backgroundColor = postItContext.value[selectedId].BackgroundColor;
+
+      changeMode(PostItModes.EDIT);
+    }
+  }
+  
+}
+
 onBeforeMount(loadPostIts);
 </script>
 
 <template>
   <AppHeaderVue />
-  <PostItEdit v-if="Mode === PostItModes.CREATE || Mode === PostItModes.EDIT" />
+  <PostItEdit v-if="Mode === PostItModes.CREATE" />
+  <PostItEdit v-else-if="Mode === PostItModes.EDIT" 
+    :title="selectedPostIt.title" 
+    :description="selectedPostIt.description" 
+    :backgroundColor="selectedPostIt.backgroundColor" />
+
   <section class="appBody">
     <!--For every PostItData object, it rendes a postit-->
     <PostItViewVue v-for="(postit) in postItContext" 
       :postItKey="postit.Id" 
       :title="postit.Title" 
       :content="postit.Description" 
-      :postItColor="postit.BackgroundColor"/>
+      :postItColor="postit.BackgroundColor"
+      @click="launchEditMode" />
     <AddButtonVue v-if="Mode === PostItModes.VIEW" 
       class="appBody__add" id="addButton" 
       @click="changeMode(PostItModes.CREATE)"/>
