@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import AddButton from './AddButton.vue';
 import ColorPalette from './ColorPalette.vue';
-import { isEditMode, postItContext, POST_IT_KEY, postItColor } from '../utils';
+import { PostItModes, postItContext, POST_IT_KEY, postItColor, changeMode } from '../utils';
 import { PostItData } from '../assets/modules/PostItData';
-
-const closeEditMode = function() {
-  isEditMode.value = "false";
-}
 
 const createPostIt = function() {
   const inputTitle : HTMLInputElement | null = document.querySelector("#postItTitle");
@@ -18,7 +14,7 @@ const createPostIt = function() {
     const selectedColorClass : string = selectedColor.classList[1];
     postItContext.value.push(new PostItData(inputTitle?.value, inputText?.value, selectedColorClass));
     localStorage.setItem(POST_IT_KEY, JSON.stringify(postItContext.value));
-    closeEditMode();
+    changeMode(PostItModes.VIEW);
   }
 }
 
@@ -31,7 +27,8 @@ const createPostIt = function() {
         <label class="postItEdit__form__header__title" for="postItTitle">
           <input type="text" name="postItTitle" id="postItTitle">
         </label>
-        <span class="postItEdit__form__header__close" @click="closeEditMode">
+        <span class="postItEdit__form__header__close" 
+        @click="changeMode(PostItModes.VIEW)">
           x
         </span>
       </header>

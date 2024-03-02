@@ -6,7 +6,7 @@ import AppHeaderVue from './components/AppHeader.vue';
 import AddButtonVue from './components/AddButton.vue';
 import PostItEdit from './components/PostItEdit.vue';
 
-import { isEditMode, postItContext, POST_IT_KEY, RawPostItData } from './utils';
+import { Mode, PostItModes, changeMode, postItContext, POST_IT_KEY, RawPostItData } from './utils';
 import { PostItData } from './assets/modules/PostItData';
 
 const loadPostIts = function() {
@@ -30,17 +30,12 @@ const loadPostIts = function() {
 
 }
 
-const openPostItEdit = function() {
-  // Sets true for editmode: It hides add button and reveal postIt Add window
-  isEditMode.value = "true";
-}
-
 onBeforeMount(loadPostIts);
 </script>
 
 <template>
   <AppHeaderVue />
-  <PostItEdit v-if="isEditMode === 'true'" />
+  <PostItEdit v-if="Mode === PostItModes.CREATE || Mode === PostItModes.EDIT" />
   <section class="appBody">
     <!--For every PostItData object, it rendes a postit-->
     <PostItViewVue v-for="(postit) in postItContext" 
@@ -48,7 +43,9 @@ onBeforeMount(loadPostIts);
       :title="postit.Title" 
       :content="postit.Description" 
       :postItColor="postit.BackgroundColor"/>
-    <AddButtonVue v-if="isEditMode === 'false'" class="appBody__add" id="addButton" @click="openPostItEdit"/>
+    <AddButtonVue v-if="Mode === PostItModes.VIEW" 
+      class="appBody__add" id="addButton" 
+      @click="changeMode(PostItModes.CREATE)"/>
   </section>
 </template>
 
