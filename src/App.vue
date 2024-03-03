@@ -80,6 +80,7 @@ onBeforeMount(loadPostIts);
       @click="launchEditMode" />
     <AddButtonVue v-if="Mode === PostItModes.VIEW" 
       class="appBody__add" id="addButton" 
+      symbol="&#43;"
       @click="changeMode(PostItModes.CREATE)"/>
   </section>
 </template>

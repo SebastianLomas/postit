@@ -44,7 +44,9 @@ const createPostIt = function() {
         </label>
         <div class="postItEdit__form__body__config">
           <ColorPalette />
-          <AddButton @click="createPostIt" />
+          <AddButton 
+            symbol="&#10004;"
+            @click="createPostIt" />
         </div>
       </section>
     </article>

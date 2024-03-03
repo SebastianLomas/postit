@@ -1,11 +1,13 @@
 <script setup lang="ts">
-
+const props = defineProps({
+  symbol : String
+});
 </script>
 
 <template>
   <div class="addPostIt">
     <span class="addPostIt__symbol">
-      +
+      {{ props.symbol }}
     </span>
   </div>
 </template>
