@@ -47,11 +47,19 @@ const launchEditMode = function(ev : MouseEvent) {
 
     // If it's less than 0, it won't work 
     if(selectedId >= 0) {
-      // Assign the values to selectedPost, so can they can be passed as props
-      selectedPostIt.id = postItContext.value[selectedId].Id;
-      selectedPostIt.title = postItContext.value[selectedId].Title;
-      selectedPostIt.description = postItContext.value[selectedId].Description;
-      selectedPostIt.backgroundColor = postItContext.value[selectedId].BackgroundColor;
+      // Loops through the postits until it finds the postit with the same id as selectedId
+      for(let i = 0;i < postItContext.value.length;i++) {
+        const postIt = postItContext.value[i];
+
+        if(postIt.Id === selectedId) {
+          // Once found, assigned value to selectedPostIt, where props are stored
+          selectedPostIt.id = postIt.Id;
+          selectedPostIt.title = postIt.Title;
+          selectedPostIt.description = postIt.Description;
+          selectedPostIt.backgroundColor = postIt.BackgroundColor;
+        }
+      }
+
 
       changeMode(PostItModes.EDIT);
     }
