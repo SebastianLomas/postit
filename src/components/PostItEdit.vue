@@ -33,10 +33,11 @@ const createPostIt = function() {
         <label class="postItEdit__form__header__title" for="postItTitle">
           <input type="text" name="postItTitle" id="postItTitle">
         </label>
-        <span class="postItEdit__form__header__close" 
-        @click="changeMode(PostItModes.VIEW)">
-          x
-        </span>
+        <div class="postItEdit__form__header__close" @click="changeMode(PostItModes.VIEW)">
+          <span>
+            x
+          </span>
+        </div>
       </header>
       <section class="postItEdit__form__body">
         <label class="postItEdit__form__body__input" for="postItText">
@@ -80,6 +81,108 @@ const createPostIt = function() {
 @import '../utils.scss';
 
 .postItEdit {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    &__form {
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 5rem calc(100% - 5rem);
+
+      &__header {
+        display: grid;
+        width: 100%;
+        height: 100%;
+        grid-template-columns: 1fr 5rem;
+        grid-template-rows: 100%;
+
+        &__title {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          justify-content: center;
+          align-items: center;
+
+          input {
+            width: 90%;
+            height: 2rem;
+            font-size: 1.5rem;
+            padding: 0 0.2rem;
+            background-color: rgba($darkColor, 0.2);
+          }
+        }
+
+        &__close {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          justify-content: center;
+          align-items: center;
+          &:active {
+            background-color: rgba($darkColor, $alpha: 0.5);
+            color: $whiteColor;
+          }
+        }
+      }
+
+      &__body {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr 8rem;
+
+        &__input {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          justify-content: center;
+          align-items: center;
+
+          textarea {
+            display: block;
+            width: 95%;
+            height: 90%;
+            font-size: 1.5rem;
+            padding: 0 0.2rem;
+            background-color: rgba($darkColor, 0.2);
+          }
+        }
+
+        &__config {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+}
+
+
+@media (max-width: $maxMobileResolution) {
+  .postItEdit__form {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (min-width: $maxMobileResolution) {
+  .postItEdit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba($darkColor, 0.8);
+
+    &__form {
+      width: 31.25rem;
+      height: 31.25rem;
+    }
+  }
+}
+
+/*.postItEdit {
   display: flex;
   width: 100%;
   height: 100%;
@@ -171,5 +274,5 @@ const createPostIt = function() {
       }
     }
   }
-}
+}*/
 </style>
