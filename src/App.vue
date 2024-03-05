@@ -71,25 +71,28 @@ onBeforeMount(loadPostIts);
 </script>
 
 <template>
-  <AppHeaderVue />
-  <PostItEdit v-if="Mode === PostItModes.CREATE" />
-  <PostItEdit v-else-if="Mode === PostItModes.EDIT" 
-    :title="selectedPostIt.title" 
-    :description="selectedPostIt.description" 
-    :backgroundColor="selectedPostIt.backgroundColor" />
-
   <section class="appBody">
-    <!--For every PostItData object, it rendes a postit-->
-    <PostItViewVue v-for="(postit) in postItContext" 
-      :postItKey="postit.Id" 
-      :title="postit.Title" 
-      :content="postit.Description" 
-      :postItColor="postit.BackgroundColor"
-      @click="launchEditMode" />
-    <AddButtonVue v-if="Mode === PostItModes.VIEW" 
-      class="appBody__add" id="addButton" 
-      symbol="&#43;"
-      @click="changeMode(PostItModes.CREATE)"/>
+    <AppHeaderVue />
+    <PostItEdit v-if="Mode === PostItModes.CREATE" />
+    <PostItEdit v-else-if="Mode === PostItModes.EDIT" 
+      :title="selectedPostIt.title" 
+      :description="selectedPostIt.description" 
+      :backgroundColor="selectedPostIt.backgroundColor" />
+    <section class="appBody__content">
+      <!--For every PostItData object, it rendes a postit-->
+      <PostItViewVue v-for="(postit) in postItContext" 
+        :postItKey="postit.Id" 
+        :title="postit.Title" 
+        :content="postit.Description" 
+        :postItColor="postit.BackgroundColor"
+        @click="launchEditMode" 
+      />
+      <AddButtonVue v-if="Mode === PostItModes.VIEW" 
+        class="appBody__addButton" id="addButton" 
+        symbol="&#43;"
+        @click="changeMode(PostItModes.CREATE)"
+      />
+    </section>
   </section>
 </template>
 
@@ -97,6 +100,51 @@ onBeforeMount(loadPostIts);
 @import "./utils.scss";
 
 .appBody {
+  display: grid;
+  width: 100%;
+  height: 100dvh;
+  grid-template-columns: 100%;
+  grid-template-rows: 5rem 1fr;
+  position: relative;
+
+  &__content {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    justify-items: center;
+    align-items: baseline;
+  }
+
+  &__addButton {
+    position: fixed;
+    right: 0.5rem;
+    bottom: 1rem;
+    z-index: 99;
+  }
+}
+
+@media (max-width: $maxMobileResolution) {
+  .appBody__content {
+    grid-template-columns: 14rem;
+    grid-template-rows: repeat(auto-fill, 14rem);
+    padding-top: 0.5rem;
+    row-gap: 0.5rem
+  }
+}
+
+@media (min-width: $maxMobileResolution) {
+  .appBody__content {
+    grid-template-columns: repeat(auto-fill, 14rem);
+    grid-template-rows: repeat(auto-fill, 14rem);
+    gap: 0.5rem;
+  }
+}
+
+@media(min-width: $maxTabletResolution) {
+
+}
+/*.appBody {
   display: grid;
   width: 100%;
   height: 100vh;
@@ -115,5 +163,5 @@ onBeforeMount(loadPostIts);
     right: 0;
     bottom: 1rem;
   }
-}
+}*/
 </style>
