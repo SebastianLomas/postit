@@ -14,7 +14,7 @@
 .header {
   display: flex;
   width: 100%;
-  height: 5rem;
+  height: 100%;
   align-items: center;
   padding-left: 0.2rem;
 
@@ -26,6 +26,12 @@
     &--com {
       color: $yellowColor;
     }
+  }
+}
+
+@media (max-width: $maxTabletResolution) {
+  .header {
+    justify-content: center;
   }
 }
 </style>
