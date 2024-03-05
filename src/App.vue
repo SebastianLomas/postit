@@ -126,8 +126,8 @@ onBeforeMount(loadPostIts);
 
 @media (max-width: $maxMobileResolution) {
   .appBody__content {
-    grid-template-columns: 14rem;
-    grid-template-rows: repeat(auto-fill, 14rem);
+    grid-template-columns: $postItViewSize;
+    grid-template-rows: repeat(auto-fill, $postItViewSize);
     padding-top: 0.5rem;
     row-gap: 0.5rem
   }

@@ -34,10 +34,14 @@ const deletePostIt = function(ev : MouseEvent) {
 <template>
   <article :class="['postIt', postItColor]" :data-id="postItKey">
     <header class="postIt__header">
-      <h3 class="postIt__header__title">
-        {{ title }}
-      </h3>
-      <span class="postIt__header__close" @click="deletePostIt">x</span>
+      <div class="postIt__header__title">
+        <h3>
+          {{ title }}
+        </h3>
+      </div>
+      <div class="postIt__header__close" @click="deletePostIt">
+        <span>x</span>
+      </div>
     </header>
     <section class="postIt__body">
       <p class="postIt__body__text">
@@ -49,44 +53,68 @@ const deletePostIt = function(ev : MouseEvent) {
 
 <style scoped lang="scss">
   @import "../utils.scss";
-  .postIt{
+
+  .postIt {
+    display: grid;
     width: $postItViewSize;
     height: $postItViewSize;
-    text-transform: capitalize;
+    grid-template-columns: 100%;
+    grid-template-rows: 3rem calc(100% - 3rem);
 
     &__header {
       display: grid;
       width: 100%;
-      height: 1.25rem;
-      grid-template-areas: 
-      "title title button";
-      grid-template-columns: 1fr 1fr 1.65rem;
-      margin-bottom: 1rem;
-      padding-left: 0.2rem;
+      height: 100%;
+      grid-template-columns: 80% 20%;
+      grid-template-rows: 100%;
       
       &__title {
+        display: flex;
         width: 100%;
         height: 100%;
-        grid-area: title;
-        padding-top: 0.1rem;
-        font-size: 1.25rem;
+        align-items: center;
+        padding-left: 0.2rem;
+        text-transform: capitalize;
+
+        h3 {
+          font-size: 1.5rem;
+        }
       }
 
       &__close {
-        @include closeButton();
-      }
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
 
-      &__close:hover {
-        cursor: pointer;
-        transition: 200ms;
-        background-color: rgba($darkColor, $alpha: 0.5);
+        &:active {
+          background-color: rgba($darkColor, $alpha: 0.5);
+          color: $whiteColor;
+        }
+
+        span {
+          font-weight: bold;
+        }
       }
     }
 
     &__body {
       width: 100%;
-      min-height: 1rem;
-      max-height: 12.5rem;
+      height: 100%;
+      max-height: $postItViewSize;
+      padding: 0 0.2rem;
+      word-break: break-all;
+      overflow-x: none;
+      overflow-y: scroll;
+      scrollbar-width: thin;
+      scrollbar-color: $darkColor rgba($darkColor, 0.1);
+
+      &__text {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 </style>
