@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { POST_IT_KEY, postItContext } from '../utils';
+import { POST_IT_KEY, postItContext, saveLocally } from '../utils';
 
 defineProps({
   title : String,
@@ -25,8 +25,9 @@ const deletePostIt = function(ev : MouseEvent) {
     postItContext.value = postItContextTemp;
 
     // Cleaning and saving postit array in local storage
-    localStorage.clear();
-    localStorage.setItem(POST_IT_KEY, JSON.stringify(postItContext.value));
+    saveLocally(true);
+    /*localStorage.clear();
+    localStorage.setItem(POST_IT_KEY, JSON.stringify(postItContext.value));*/
   }
 }
 </script>
@@ -39,7 +40,7 @@ const deletePostIt = function(ev : MouseEvent) {
           {{ title }}
         </h3>
       </div>
-      <div class="postIt__header__close" @click="deletePostIt">
+      <div class="postIt__header__close" @click.stop="deletePostIt">
         <span>x</span>
       </div>
     </header>

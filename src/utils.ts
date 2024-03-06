@@ -31,3 +31,9 @@ export const changeMode = function(mode : PostItModes) : void {
   Mode.value = mode;
 }
 
+export const saveLocally = function(clear : Boolean = false) {
+  if(clear) {
+    localStorage.clear();
+  }
+  localStorage.setItem(POST_IT_KEY, JSON.stringify(postItContext.value));
+}

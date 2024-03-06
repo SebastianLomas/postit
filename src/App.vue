@@ -6,10 +6,10 @@ import AppHeaderVue from './components/AppHeader.vue';
 import AddButtonVue from './components/AddButton.vue';
 import PostItEdit from './components/PostItEdit.vue';
 
-import { Mode, PostItModes, changeMode, postItContext, POST_IT_KEY, RawPostItData } from './utils';
+import { Mode, PostItModes, changeMode, postItContext, POST_IT_KEY, RawPostItData, postItColor } from './utils';
 import { PostItData } from './assets/modules/PostItData';
 
-let selectedPostIt : RawPostItData = {
+let editPostIt : RawPostItData = {
   id: -1,
   title: "",
   description: "",
@@ -37,34 +37,21 @@ const loadPostIts = function() {
 
 }
 
-const launchEditMode = function(ev : MouseEvent) {
-  // Gets Post It Element
-  const postItSelected : HTMLDivElement | null | undefined = ev.target as HTMLDivElement;
+const launchEditMode = function(ev : MouseEvent, selectedPostId : number) {
+  // Selects the post to be edited in postItContext
+  const selectedPostIt = postItContext.value[selectedPostId];
 
-  if(postItSelected) {
-    // Gets Id set in data-id
-    const selectedId : number = parseInt(postItSelected.dataset.id ?? "-1");
+  if(selectedPostIt) {
+    // Give the data to editpostit. editpostit is passed to PostItedit as props.
+    editPostIt.id = selectedPostIt.Id;
+    editPostIt.title = selectedPostIt.Title;
+    editPostIt.description = selectedPostIt.Description;
+    editPostIt.backgroundColor = selectedPostIt.BackgroundColor;
+    postItColor.value = selectedPostIt.BackgroundColor;
 
-    // If it's less than 0, it won't work 
-    if(selectedId >= 0) {
-      // Loops through the postits until it finds the postit with the same id as selectedId
-      for(let i = 0;i < postItContext.value.length;i++) {
-        const postIt = postItContext.value[i];
-
-        if(postIt.Id === selectedId) {
-          // Once found, assigned value to selectedPostIt, where props are stored
-          selectedPostIt.id = postIt.Id;
-          selectedPostIt.title = postIt.Title;
-          selectedPostIt.description = postIt.Description;
-          selectedPostIt.backgroundColor = postIt.BackgroundColor;
-        }
-      }
-
-
-      changeMode(PostItModes.EDIT);
-    }
+    // Changes the mode
+    changeMode(PostItModes.EDIT);
   }
-  
 }
 
 onBeforeMount(loadPostIts);
@@ -75,17 +62,18 @@ onBeforeMount(loadPostIts);
     <AppHeaderVue />
     <PostItEdit v-if="Mode === PostItModes.CREATE" />
     <PostItEdit v-else-if="Mode === PostItModes.EDIT" 
-      :title="selectedPostIt.title" 
-      :description="selectedPostIt.description" 
-      :backgroundColor="selectedPostIt.backgroundColor" />
+      :id="editPostIt.id"
+      :title="editPostIt.title" 
+      :description="editPostIt.description" 
+      :backgroundColor="editPostIt.backgroundColor" />
     <section class="appBody__content">
       <!--For every PostItData object, it rendes a postit-->
       <PostItViewVue v-for="(postit) in postItContext" 
-        :postItKey="postit.Id" 
+        :postItKey="postit.Id"
         :title="postit.Title" 
         :content="postit.Description" 
         :postItColor="postit.BackgroundColor"
-        @click="launchEditMode" 
+        @click="launchEditMode($event, postit.Id)" 
       />
       <AddButtonVue v-if="Mode === PostItModes.VIEW" 
         class="appBody__addButton" id="addButton" 

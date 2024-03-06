@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import AddButton from './AddButton.vue';
 import ColorPalette from './ColorPalette.vue';
-import { Mode, PostItModes, postItContext, POST_IT_KEY, postItColor, changeMode } from '../utils';
+import { Mode, PostItModes, postItContext, POST_IT_KEY, postItColor, changeMode, saveLocally } from '../utils';
 import { PostItData } from '../assets/modules/PostItData';
 
 const props = defineProps({
+  id : Number,
   title : String,
   description : String,
   backgroundColor : String
@@ -19,8 +20,26 @@ const createPostIt = function() {
   if((inputTitle !== null && inputTitle.value !== "") && (inputText !== null && inputText.value !== "") && selectedColor !== null) {
     const selectedColorClass : string = selectedColor.classList[1];
     postItContext.value.push(new PostItData(inputTitle?.value, inputText?.value, selectedColorClass));
-    localStorage.setItem(POST_IT_KEY, JSON.stringify(postItContext.value));
+    saveLocally(false);
+    //localStorage.setItem(POST_IT_KEY, JSON.stringify(postItContext.value));
     changeMode(PostItModes.VIEW);
+  }
+}
+
+const savePostIt = function() {
+  const titleInput : HTMLInputElement = document.querySelector("#postItTitle") as HTMLInputElement;
+  const descriptionInput : HTMLTextAreaElement = document.querySelector("#postItText") as HTMLTextAreaElement;
+
+  if(titleInput && descriptionInput) {
+    const changeDetected : Boolean = titleInput.value !== props.title || descriptionInput.value !== props.description || postItColor.value !== props.backgroundColor;
+
+    if(props.id !== undefined && changeDetected) {
+      postItContext.value[props.id] = new PostItData(titleInput.value, descriptionInput.value, postItColor.value, props.id);
+      saveLocally(true);
+      /*localStorage.clear();
+      localStorage.setItem(POST_IT_KEY, JSON.stringify(postItContext.value))*/
+      changeMode(PostItModes.VIEW);
+    }
   }
 }
 
@@ -46,7 +65,7 @@ const createPostIt = function() {
         <div class="postItEdit__form__body__config">
           <ColorPalette />
           <AddButton 
-            symbol="&#10004;"
+            symbol="&#43;"
             @click="createPostIt" />
         </div>
       </section>
@@ -54,7 +73,7 @@ const createPostIt = function() {
   </section>
 
   <section class="postItEdit" v-else-if="Mode === PostItModes.EDIT">
-    <article :class="['postItEdit__form', props.backgroundColor]">
+    <article :class="['postItEdit__form', postItColor]">
       <header class="postItEdit__form__header">
         <label class="postItEdit__form__header__title" for="postItTitle">
           <input type="text" name="postItTitle" id="postItTitle" :value="props.title">
@@ -70,7 +89,10 @@ const createPostIt = function() {
         </label>
         <div class="postItEdit__form__body__config">
           <ColorPalette />
-          <AddButton @click="createPostIt" />
+          <AddButton
+            @click="savePostIt"
+            symbol="&#10004;" 
+          />
         </div>
       </section>
     </article>
