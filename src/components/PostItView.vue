@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { PostItData } from '../assets/modules/PostItData';
 import { POST_IT_KEY, postItContext, saveLocally } from '../utils';
 
-defineProps({
+const props = defineProps({
   title : String,
   content : String,
   postItColor : String,
@@ -9,44 +10,29 @@ defineProps({
   postItKey : Number
 });
 
-const deletePostIt = function(ev : MouseEvent) {
-  // Getting the "X" that is clicked
-  const postItX : HTMLSpanElement = ev.target as HTMLSpanElement;
-  // Getting the actual post it
-  const postItTarget : HTMLDivElement | null | undefined = postItX.parentElement?.parentElement as HTMLDivElement;
-
-  if(postItTarget !== null && postItTarget !== undefined) {
-    // Gets the id given to the element from data-id
-    const postItTargetId : string | undefined = postItTarget.dataset.id;
-    // If the id taken form data-id is equal to the Id of the elemento of the array of postits
-    // it is no saved
-    // Looped inside a normal constant to avoid multiple renders
-    const postItContextTemp = postItContext.value.filter(element => element.Id.toString() !== postItTargetId)
-    postItContext.value = postItContextTemp;
-
-    // Cleaning and saving postit array in local storage
+const deletePostIt = function(ev : MouseEvent, selectedId : number | undefined) {
+  if(selectedId !== undefined) {
+    postItContext.value = postItContext.value.filter(postIt => postIt.Id !== selectedId);
     saveLocally(true);
-    /*localStorage.clear();
-    localStorage.setItem(POST_IT_KEY, JSON.stringify(postItContext.value));*/
   }
 }
 </script>
 
 <template>
-  <article :class="['postIt', postItColor]" :data-id="postItKey">
+  <article :class="['postIt', props.postItColor]" :data-id="postItKey">
     <header class="postIt__header">
       <div class="postIt__header__title">
         <h3>
-          {{ title }}
+          {{ props.title }}
         </h3>
       </div>
-      <div class="postIt__header__close" @click.stop="deletePostIt">
+      <div class="postIt__header__close" @click.stop="deletePostIt($event, props.postItKey)">
         <span>x</span>
       </div>
     </header>
     <section class="postIt__body">
       <p class="postIt__body__text">
-        {{ content }}
+        {{ props.content }}
       </p>
     </section>
   </article>
